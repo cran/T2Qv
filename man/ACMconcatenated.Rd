@@ -4,7 +4,7 @@
 \alias{ACMconcatenated}
 \title{ACM Concatenated}
 \usage{
-ACMconcatenated(base, IndK, interactive = TRUE)
+ACMconcatenated(base, IndK, interactive = FALSE)
 }
 \arguments{
 \item{base}{Data set}
@@ -21,5 +21,5 @@ Multiple correspondence analysis applied to a concatenated table.
 }
 \examples{
 data(Datak10Contaminated)
-ACMconcatenated(Datak10Contaminated,"GroupLetter", interactive = TRUE)
+ACMconcatenated(Datak10Contaminated,"GroupLetter", interactive = FALSE)
 }

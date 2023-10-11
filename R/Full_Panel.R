@@ -24,7 +24,7 @@ globalVariables(c("base","HTML","h2","var","qchisq","sd","abline","AC.SUM1...5."
 #' @param IndK Character with the name of the column that specifies the partition of the data set in k tables.
 #' @return A complete panel with the multivariate control chart for qualitative variables, the two ACM charts and the modality distance table.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data(Datak10Contaminated)
 #' Full_Panel(Datak10Contaminated, "GroupLetter")
 #' }
@@ -177,35 +177,36 @@ Full_Panel <- function(base,IndK ) {
         for (i in 1:length(levels(groupFactor))){
           Table[[i]] <- Table[[i]][,!names(Table[[i]]) %in% IndK, drop = F]}
 
-        # mjcatable <- function(base){
-        #   MJCA <- mjca(base,nd = 2)
-        #   BURT <- MJCA$Burt
-        #   P <- BURT/sum(as.matrix(BURT))
-        #   r <- apply(P, 1, sum)
-        #   c <- apply(P, 2, sum)
-        #   D_r_inv_squ <- diag(1/sqrt(r))
-        #   D_c_inv_squ <- diag(1/sqrt(c))
-        #   S <- D_r_inv_squ%*%(P-r%*%t(c))%*%D_c_inv_squ
-        #   SVD <- svd(S)
-        #   U <- SVD$u
-        #   V <- SVD$v
-        #   F <- D_r_inv_squ%*%U
-        #   C <- D_c_inv_squ%*%V
-        #   return(C)
-        # }
-        mjcatable <- function(base, dime){
-
-          MJCA <- mjca(base,nd = dime)
-          Col <- data.frame(MJCA$colcoord[,1:dime])
-          rownames(Col) <- MJCA$levelnames
-          return(Col)
+        mjcatable <- function(base){
+          MJCA <- mjca(base,nd = 2)
+          BURT <- MJCA$Burt
+          P <- BURT/sum(as.matrix(BURT))
+          r <- apply(P, 1, sum)
+          c <- apply(P, 2, sum)
+          D_r_inv_squ <- diag(1/sqrt(r))
+          D_c_inv_squ <- diag(1/sqrt(c))
+          S <- D_r_inv_squ%*%(P-r%*%t(c))%*%D_c_inv_squ
+          SVD <- svd(S)
+          U <- SVD$u
+          V <- SVD$v
+          F <- D_r_inv_squ%*%U
+          C <- D_c_inv_squ%*%V
+          C <- C[,1:dim]
+          return(C)
         }
+        # mjcatable <- function(base, dime){
+
+        #    MJCA <- mjca(base,nd = dime)
+        #    Col <- data.frame(MJCA$colcoord[,1:dime])
+        #    rownames(Col) <- MJCA$levelnames
+        #    return(Col)
+        # }
         colcoor <- list()
 
 
 
         for (i in 1:length(levels(groupFactor))){
-          colcoor[[i]] <- mjcatable(as.data.frame(Table[i]),dim)
+          colcoor[[i]] <- mjcatable(Table[[i]])
         }
 
         NormalizacionAFM <- function(mjca){
@@ -216,7 +217,6 @@ Full_Panel <- function(base,IndK ) {
         coornorm <- list()
         for (i in 1:length(levels(groupFactor))){
           coornorm[[i]] <- NormalizacionAFM(abs(colcoor[[i]]))
-          coornorm[[i]] - min(coornorm[[i]])/(max(coornorm[[i]]) - min(coornorm[[i]]))
           colnames(coornorm[[i]]) <- paste0("V",1:ncol(coornorm[[i]]))
         }
 
@@ -246,6 +246,7 @@ Full_Panel <- function(base,IndK ) {
         for (i in 1:length(levels(groupFactor))){
           t2[[i]]=n[[i]]*(t(muii[[i]]-mu00)%*%solve(sigma)%*%(muii[[i]]-mu00))
         }
+
         T2 <- as.data.frame(as.matrix(t2))
         DtGraph <- data.frame(table=seq(1:nrow(T2)),hote=as.numeric(as.matrix(T2$V1)))
 
@@ -394,35 +395,7 @@ Full_Panel <- function(base,IndK ) {
         for (i in 1:length(levels(groupFactor))){
           Tabl[[i]] <- Table[[i]][,!names(Table[[i]]) %in% IndK, drop = F]}
 
-        # mjcatable <- function(base){
-        #   MJCA <- mjca(base,nd = 2)
-        #   BURT <- MJCA$Burt
-        #   P <- BURT/sum(as.matrix(BURT))
-        #   r <- apply(P, 1, sum)
-        #   c <- apply(P, 2, sum)
-        #   D_r_inv_squ <- diag(1/sqrt(r))
-        #   D_c_inv_squ <- diag(1/sqrt(c))
-        #   S <- D_r_inv_squ%*%(P-r%*%t(c))%*%D_c_inv_squ
-        #   SVD <- svd(S)
-        #   U <- SVD$u
-        #   V <- SVD$v
-        #   F <- D_r_inv_squ%*%U
-        #   C <- D_c_inv_squ%*%V
-        #   return(C)
-        # }
-        mjcatable <- function(base, dime){
 
-          MJCA <- mjca(base,nd = dime)
-          Col <- data.frame(MJCA$colcoord[,1:dime])
-          rownames(Col) <- MJCA$levelnames
-          return(Col)
-        }
-        colcoor <- list()
-
-
-        for (i in 1:length(levels(groupFactor))){
-          colcoor[[i]] <- as.data.frame(mjcatable(as.data.frame(Tabl[i]),dim))
-        }
         TabK <- as.data.frame(Tabl[k_item])
         AC <- mjca(TabK)
 

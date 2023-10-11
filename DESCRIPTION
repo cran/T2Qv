@@ -1,7 +1,7 @@
 Package: T2Qv
 Type: Package
 Title: Control Qualitative Variables
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(person("Wilson", "Rojas-Preciado", role = c("aut", "cre"),
                      email = "wrojas@utmachala.edu.ec"),
               person("Mauricio", "Rojas-Campuzano", role = c("aut","ctb"),
@@ -23,10 +23,10 @@ Imports: shiny, shinydashboardPlus, shinydashboard, shinycssloaders,
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2022-05-18 02:51:04 UTC; wilso
+Packaged: 2023-10-11 16:02:22 UTC; javierrojas
 Author: Wilson Rojas-Preciado [aut, cre],
   Mauricio Rojas-Campuzano [aut, ctb],
   Purificación Galindo-Villardón [aut, ctb],
   Omar Ruiz-Barzola [aut, ctb]
 Repository: CRAN
-Date/Publication: 2022-05-18 17:00:04 UTC
+Date/Publication: 2023-10-11 16:40:05 UTC

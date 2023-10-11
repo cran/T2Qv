@@ -15,9 +15,9 @@ globalVariables(c("var","qchisq","sd","abline"))
 #' @return A control chart made with the T2 hotelling statistic, applied to detect anomalies in any of the K tables obtained with the specification of \code{IndK}. The control limit of the graph is obtained from the number of dimensions \code{dim} and the type I error \code{alpha}.
 #' @examples
 #' data(Datak10Contaminated)
-#' T2_qualitative(Datak10Contaminated,"GroupLetter",9, TRUE,0.0027)
+#' T2_qualitative(Datak10Contaminated,"GroupLetter",9, FALSE,0.0027)
 #' @export
-T2_qualitative <- function(base, IndK, dim, interactive=TRUE, alpha=0.0027){
+T2_qualitative <- function(base, IndK, dim, interactive=FALSE, alpha=0.0027){
 
   Table <- list()
   Ind <- base%>% pull(IndK)
@@ -32,35 +32,36 @@ T2_qualitative <- function(base, IndK, dim, interactive=TRUE, alpha=0.0027){
   for (i in 1:length(levels(groupFactor))){
     Table[[i]] <- Table[[i]][,!names(Table[[i]]) %in% IndK, drop = F]}
 
-  # mjcatable <- function(base){
-  #   MJCA <- mjca(base,nd = 2)
-  #   BURT <- MJCA$Burt
-  #   P <- BURT/sum(as.matrix(BURT))
-  #   r <- apply(P, 1, sum)
-  #   c <- apply(P, 2, sum)
-  #   D_r_inv_squ <- diag(1/sqrt(r))
-  #   D_c_inv_squ <- diag(1/sqrt(c))
-  #   S <- D_r_inv_squ%*%(P-r%*%t(c))%*%D_c_inv_squ
-  #   SVD <- svd(S)
-  #   U <- SVD$u
-  #   V <- SVD$v
-  #   F <- D_r_inv_squ%*%U
-  #   C <- D_c_inv_squ%*%V
-  #   return(C)
-  # }
-  mjcatable <- function(base, dime){
-
-    MJCA <- mjca(base,nd = dime)
-    Col <- data.frame(MJCA$colcoord[,1:dime])
-    rownames(Col) <- MJCA$levelnames
-    return(Col)
+  mjcatable <- function(base){
+    MJCA <- mjca(base,nd = 2)
+    BURT <- MJCA$Burt
+    P <- BURT/sum(as.matrix(BURT))
+    r <- apply(P, 1, sum)
+    c <- apply(P, 2, sum)
+    D_r_inv_squ <- diag(1/sqrt(r))
+    D_c_inv_squ <- diag(1/sqrt(c))
+    S <- D_r_inv_squ%*%(P-r%*%t(c))%*%D_c_inv_squ
+    SVD <- svd(S)
+    U <- SVD$u
+    V <- SVD$v
+    F <- D_r_inv_squ%*%U
+    C <- D_c_inv_squ%*%V
+    C <- C[,1:dim]
+    return(C)
   }
+  # mjcatable <- function(base, dime){
+
+  #    MJCA <- mjca(base,nd = dime)
+  #    Col <- data.frame(MJCA$colcoord[,1:dime])
+  #    rownames(Col) <- MJCA$levelnames
+  #    return(Col)
+  # }
   colcoor <- list()
 
 
 
   for (i in 1:length(levels(groupFactor))){
-    colcoor[[i]] <- mjcatable(Table[[i]],dim)
+    colcoor[[i]] <- mjcatable(Table[[i]])
   }
 
   NormalizacionAFM <- function(mjca){

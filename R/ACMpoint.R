@@ -15,9 +15,9 @@ globalVariables(c("AC.SUM1...5.","AC.SUM1...8."))
 #' @return A Multiple Correspondence Analysis graph of the table specified in \code{PointTable}.
 #' @examples
 #' data(Datak10Contaminated)
-#' ACMpoint(Datak10Contaminated,"GroupLetter", PointTable="j", interactive=TRUE)
+#' ACMpoint(Datak10Contaminated,"GroupLetter", PointTable="j", interactive=FALSE)
 #' @export
-ACMpoint <- function(base, IndK, PointTable, interactive=TRUE){
+ACMpoint <- function(base, IndK, PointTable, interactive=FALSE){
 
   Table <- list()
   Ind <- base%>% pull(IndK)

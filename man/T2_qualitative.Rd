@@ -4,7 +4,7 @@
 \alias{T2_qualitative}
 \title{Multivariate control chart for qualitative variables}
 \usage{
-T2_qualitative(base, IndK, dim, interactive = TRUE, alpha = 0.0027)
+T2_qualitative(base, IndK, dim, interactive = FALSE, alpha = 0.0027)
 }
 \arguments{
 \item{base}{Data set}
@@ -25,5 +25,5 @@ Multivariate control chart T2 Hotelling applicable for qualitative variables.
 }
 \examples{
 data(Datak10Contaminated)
-T2_qualitative(Datak10Contaminated,"GroupLetter",9, TRUE,0.0027)
+T2_qualitative(Datak10Contaminated,"GroupLetter",9, FALSE,0.0027)
 }

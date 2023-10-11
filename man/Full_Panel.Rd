@@ -18,7 +18,7 @@ A complete panel with the multivariate control chart for qualitative variables, 
 A shiny panel complete with the multivariate control chart for qualitative variables, the two ACM charts and the modality distance table. Within the dashboard, arguments such as type I error and dimensionality can be modified.
 }
 \examples{
-\donttest{
+\dontrun{
 data(Datak10Contaminated)
 Full_Panel(Datak10Contaminated, "GroupLetter")
 }

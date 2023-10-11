@@ -13,9 +13,9 @@ globalVariables(c("AC.SUM1...5.","AC.SUM1...8.","AC"))
 #' @return A Multiple Correspondence Analysis graph of the concatenated table.
 #' @examples
 #' data(Datak10Contaminated)
-#' ACMconcatenated(Datak10Contaminated,"GroupLetter", interactive = TRUE)
+#' ACMconcatenated(Datak10Contaminated,"GroupLetter", interactive = FALSE)
 #' @export
-ACMconcatenated <- function(base, IndK, interactive=TRUE){
+ACMconcatenated <- function(base, IndK, interactive=FALSE){
 
 
   Table <- base

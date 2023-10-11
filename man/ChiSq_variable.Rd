@@ -4,7 +4,7 @@
 \alias{ChiSq_variable}
 \title{Chi squared variable from point table.}
 \usage{
-ChiSq_variable(base, IndK, PointTable, interactive = TRUE, ylim = 0.09)
+ChiSq_variable(base, IndK, PointTable, interactive = FALSE, ylim = 0.09)
 }
 \arguments{
 \item{base}{Data set}
@@ -25,5 +25,5 @@ Contains Chi square distance between the column masses of the table specified in
 }
 \examples{
 data(Datak10Contaminated)
-ChiSq_variable(Datak10Contaminated, "GroupLetter", PointTable="j", ylim=5, interactive=TRUE)
+ChiSq_variable(Datak10Contaminated, "GroupLetter", PointTable="j", ylim=5)
 }

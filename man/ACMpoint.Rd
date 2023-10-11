@@ -4,7 +4,7 @@
 \alias{ACMpoint}
 \title{ACM in one point}
 \usage{
-ACMpoint(base, IndK, PointTable, interactive = TRUE)
+ACMpoint(base, IndK, PointTable, interactive = FALSE)
 }
 \arguments{
 \item{base}{Data set}
@@ -23,5 +23,5 @@ Multiple correspondence analysis applied to a specific table.
 }
 \examples{
 data(Datak10Contaminated)
-ACMpoint(Datak10Contaminated,"GroupLetter", PointTable="j", interactive=TRUE)
+ACMpoint(Datak10Contaminated,"GroupLetter", PointTable="j", interactive=FALSE)
 }

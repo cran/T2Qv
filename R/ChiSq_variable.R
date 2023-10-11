@@ -20,9 +20,9 @@ globalVariables(c("Variable","Chi.Squared","cat2","freq","data","Sum"))
 #' @return A table with Chi square distances between the column masses of the table specified in \code{PointTable} and the concatenated table.
 #' @examples
 #' data(Datak10Contaminated)
-#' ChiSq_variable(Datak10Contaminated, "GroupLetter", PointTable="j", ylim=5, interactive=TRUE)
+#' ChiSq_variable(Datak10Contaminated, "GroupLetter", PointTable="j", ylim=5)
 #' @export
-ChiSq_variable <- function(base, IndK, PointTable, interactive=TRUE, ylim=0.09){
+ChiSq_variable <- function(base, IndK, PointTable, interactive=FALSE, ylim=0.09){
   names(base) <- str_replace(names(base), " ",".")
   Table <- list()
   Ind <- base%>% pull(IndK)
